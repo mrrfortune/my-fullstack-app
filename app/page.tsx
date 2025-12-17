@@ -15,7 +15,7 @@ export default function Home() {
 
   // 1. Fetch logic (Directly in the component for now)
  useEffect(() => {
-  fetch("http://127.0.0.1:5000/api/hello")
+  fetch("http://localhost:8000/api/hello")
     .then((res) => res.json())
     .then((data) => {
       console.log("Data received:", data); // Check if this shows in F12 console
