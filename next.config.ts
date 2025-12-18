@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = { 
+  transpilePackages: ['devlink'],
   /* Fix for the Workspace Root Warning */
   turbopack: {
+   
     // We set the root to exactly where THIS file is located
     root: path.join(__dirname), 
   },
