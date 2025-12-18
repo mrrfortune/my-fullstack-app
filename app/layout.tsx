@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* This component now only exists on the client side */}
           <Navbar />
           
-          <main>{children}</main>
+          <main className="main grid-cols-12">{children}</main>
           
           <Footer />
         </DevLinkProvider>
