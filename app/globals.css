@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../devlink/global.css"
-@import "../devlink/Mainhome.css";
+
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

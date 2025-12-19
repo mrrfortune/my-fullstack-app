@@ -120,7 +120,6 @@
   .hero-heading-left {
     display: flex;
     height: auto;
-    max-width: 100vw;
     min-height: auto;
     margin-left: auto;
     padding-top: 80px;
