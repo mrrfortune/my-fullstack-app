@@ -17,64 +17,42 @@ export function AiProblemSolver() {
   const [isLoading, setIsLoading] = useState(false);
   const [solutions, setSolutions] = useState<Solution[]>([]);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-
   const generateSolutions = async () => {
-    if (!input.trim()) return;
+  if (!input.trim()) return;
 
-    setIsLoading(true);
-    setHasSubmitted(true);
+  setIsLoading(true);
+  setHasSubmitted(true);
+  
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: input })
+    });
+
+    if (!res.ok) throw new Error("Network response was not ok");
+
+    const data = await res.json();
     
-    // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Generate mock solutions based on common pain points
-    const mockSolutions: Solution[] = [
-      {
-        category: 'Audience Targeting',
-        title: 'Refine Your Audience Segmentation',
-        description: 'Based on your challenge, we recommend implementing advanced audience segmentation to reach the most relevant prospects.',
-        actions: [
-          'Create detailed buyer personas',
-          'Implement lookalike audiences',
-          'Use behavioral targeting data',
-          'A/B test different audience segments',
-        ],
-      },
-      {
-        category: 'Content Strategy',
-        title: 'Develop a Multi-Channel Content Plan',
-        description: 'A cohesive content strategy across platforms will help address your core challenges and improve engagement.',
-        actions: [
-          'Audit current content performance',
-          'Create platform-specific content',
-          'Develop a consistent brand voice',
-          'Implement content calendar',
-        ],
-      },
-      {
-        category: 'Performance Optimization',
-        title: 'Implement Data-Driven Optimization',
-        description: 'Leverage analytics and continuous testing to improve campaign performance and ROI.',
-        actions: [
-          'Set up conversion tracking',
-          'Run multivariate tests',
-          'Optimize ad spend allocation',
-          'Monitor key performance indicators',
-        ],
-      },
-    ];
-
-    setSolutions(mockSolutions);
+    // We expect the Python backend to return { "solutions": [...] }
+    if (data.solutions) {
+      setSolutions(data.solutions);
+    }
+  } catch (err) {
+    console.error("Failed to fetch B2B solutions:", err);
+    // Optional: Add a 'System Error' toast or state here
+  } finally {
     setIsLoading(false);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  }
+};
+  
+const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     generateSolutions();
-  };
+};
 
   return (
-    <section id="ai-solver" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section id="ai-solver" className="py-24 bg-linear-to-br from-slate-50 to-blue-50">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full mb-4">
@@ -97,18 +75,18 @@ export function AiProblemSolver() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <Textarea
                 placeholder="Example: We're struggling to reach our target audience effectively. Our current ads aren't converting well and our cost per acquisition is too high..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="min-h-[150px] resize-none"
+                className="min-h-[150px] mb-4 resize-none"
                 disabled={isLoading}
               />
               <Button 
                 type="submit" 
                 size="lg" 
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 disabled={isLoading || !input.trim()}
               >
                 {isLoading ? (
@@ -173,15 +151,15 @@ export function AiProblemSolver() {
               ))}
             </div>
 
-            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+            <Card className="bg-linear-to-r from-blue-600 to-purple-600 text-white border-0">
               <CardContent className="p-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div>
+                  
                     <h3 className="text-2xl mb-2">Ready to implement these solutions?</h3>
                     <p className="text-blue-100">
                       Let's schedule a consultation to discuss your custom strategy
                     </p>
-                  </div>
+                  
                   <Button size="lg" variant="secondary" className="shrink-0">
                     Book a Consultation
                   </Button>

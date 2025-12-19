@@ -14,37 +14,37 @@ export function Header({ onNavigate }: HeaderProps) {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10  from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <span className="text-xl">AdVantage AI</span>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
-            <button 
+            <a
               onClick={() => onNavigate?.('home')}
               className="text-slate-700 hover:text-blue-600 transition-colors"
             >
               Home
-            </button>
-            <button 
+            </a>
+            <a
               onClick={() => onNavigate?.('services')}
               className="text-slate-700 hover:text-blue-600 transition-colors"
             >
               Services
-            </button>
-            <button 
+            </a>
+            <a 
               onClick={() => onNavigate?.('ai-solver')}
               className="text-slate-700 hover:text-blue-600 transition-colors"
             >
               AI Solutions
-            </button>
-            <button 
+            </a>
+            <a
               onClick={() => onNavigate?.('about')}
               className="text-slate-700 hover:text-blue-600 transition-colors"
             >
               About
-            </button>
+            </a>
           </nav>
 
           <div className="hidden md:block">
