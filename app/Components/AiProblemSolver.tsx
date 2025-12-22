@@ -63,7 +63,7 @@ const handleSubmit = (e: React.FormEvent) => {
             Tell Us Your Challenge
           </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Share your marketing pain points and receive instant AI-generated solutions tailored to your needs
+            Share your adverting and marketing pain points and receive instant AI-generated solutions tailored to your needs
           </p>
         </div>
 
@@ -80,7 +80,7 @@ const handleSubmit = (e: React.FormEvent) => {
                 placeholder="Example: We're struggling to reach our target audience effectively. Our current ads aren't converting well and our cost per acquisition is too high..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="min-h-[150px] mb-4 resize-none"
+                className="min-h-37.5 mb-4 resize-none"
                 disabled={isLoading}
               />
               <Button 

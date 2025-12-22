@@ -1,33 +1,27 @@
-"use client";
-import dynamic from "next/dynamic";
-import { DevLinkProvider } from "@/devlink";
-import "@/devlink/global.css";
-import { Header } from "./components/Header"; // Import external component
-import { Footer } from "./components/Footer"; // Import external component
+import { ThemeProvider } from './components/theme-provider';
+import { Header } from "./components/Header"; 
+import { Footer } from "./components/Footer"; 
 import "./globals.css";
 
-// 1. Load your Webflow Navbar dynamically and disable Server-Side Rendering (SSR)
-const Navbar = dynamic(() => import("@/devlink").then((mod) => mod.HeaderNav2), {
-  ssr: false,
-});
-
-// 2. Do the same for Footer if you have one
-// const Footer = dynamic(() => import("@/devlink").then((mod) => mod.Footer), {
-//   ssr: false,
-//   loading: () => <div style={{ height: '100px' }} />, // Optional placeholder
-// });
+export const metadata = {
+  title: "B2B Marketing Platform",
+  description: "Precision advertising and AI-driven growth solutions.",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <DevLinkProvider>
-          {/* This component now only exists on the client side */}
-          <Header/>
-          <main className="main grid-cols-12">{children}</main>
-          
-          <Footer />
-        </DevLinkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {/* Notice: No hardcoded bg-white here. 
+            The background color is now controlled by your globals.css variables.
+          */}
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

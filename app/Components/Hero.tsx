@@ -1,81 +1,160 @@
-
 "use client";
-import { ArrowRight } from 'lucide-react';
+import { ChevronDown, Send, Loader2, ArrowRight, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from './ui/button';
+import { Textarea } from './ui/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 
-interface HeroProps {
-  onGetStarted: () => void;
+// Updated interface to match your app.py JSON structure
+interface Solution {
+  title: string;
+  description: string;
+  service_match: string;
+  service_link: string;
 }
 
-export function Hero({ onGetStarted }: HeroProps) {
+interface BackendResponse {
+  strategy_overview: string;
+  solutions: Solution[];
+}
+
+export function Hero() {
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState<BackendResponse | null>(null);
+
+  const generateResponse = async () => {
+    if (!input.trim()) return;
+    setIsLoading(true);
+    
+    try {
+      // 1. CALL YOUR PYTHON BACKEND
+      const res = await fetch('http://127.0.0.1:8000/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: input }),
+      });
+
+      if (!res.ok) throw new Error("Backend unreachable");
+
+      const data: BackendResponse = await res.json();
+      setResponse(data);
+
+      // 2. AUTO-SCROLL LOGIC
+      // After response loads, scroll to the first recommended service section
+      if (data.solutions.length > 0) {
+        setTimeout(() => {
+          const sectionId = data.solutions[0].service_link;
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 800);
+      }
+    } catch (error) {
+      console.error("Connection to app.py failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    generateResponse();
+  };
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-white to-purple-50">
-      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-20 transition-colors duration-300">
+      <div className="absolute inset-0 bg-grid-slate-900/[0.04] dark:bg-grid-white/[0.05] -z-10" />
       
-      <div className="container mx-auto px-6 py-24 max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <div className="container mx-auto px-6 py-12 max-w-4xl">
+        <div className="flex flex-col items-center text-center space-y-12">
+          {/* Hero Text */}
+          <div className="space-y-8 max-w-3xl">
             <div className="inline-block">
-              <span className="bg-blue-600 text-white px-4 py-2 rounded-full">
-                AI-Powered Solutions
+              <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                Full-Service Digital Agency
               </span>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl">
-              Transform Your Brand With{' '}
+            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight">
+              Amplify Your{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Data-Driven
-              </span>{' '}
-              Advertising
+                Digital Presence
+              </span>
             </h1>
             
-            <p className="text-xl text-slate-600 max-w-2xl">
-              We combine creative excellence with AI-powered insights to solve your marketing challenges 
-              and drive measurable results for your business.
+            <p className="text-xl text-muted-foreground">
+              Your AI-powered strategist for Ad Tech, local SEO, and multi-channel growth.
             </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-700"
-                onClick={onGetStarted}
-              >
-                Get Started with AI
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button size="lg" variant="outline">
-                View Our Work
-              </Button>
-            </div>
-            
-            <div className="flex items-center gap-8 pt-8">
-              <div>
-                <div className="text-3xl">500+</div>
-                <div className="text-slate-600">Happy Clients</div>
-              </div>
-              <div className="w-px h-12 bg-slate-300" />
-              <div>
-                <div className="text-3xl">95%</div>
-                <div className="text-slate-600">Success Rate</div>
-              </div>
-              <div className="w-px h-12 bg-slate-300" />
-              <div>
-                <div className="text-3xl">2.5x</div>
-                <div className="text-slate-600">Avg ROI</div>
-              </div>
-            </div>
           </div>
           
-          <div className="relative">
-            <div className="absolute -top-4 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-            <div className="absolute -bottom-8 right-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1700561570982-5f845601c505?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMHRlYW0lMjBtZWV0aW5nfGVufDF8fHx8MTc2NjA1NzUxNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Creative team collaboration"
-                className="rounded-2xl shadow-2xl"
-              />
-            </div>
+          {/* Solution Finder Card */}
+          <div className="w-full max-w-2xl">
+            <Card className="border-border shadow-2xl bg-card">
+              <CardHeader>
+                <CardTitle className="text-2xl">Find Your Solution</CardTitle>
+                <CardDescription>
+                  Describe your business challenge and our AI will map your tactical roadmap.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Textarea
+                    placeholder="e.g., I need to drive more foot traffic to my pizza shop using Geo-Fencing..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="min-h-[120px] resize-none bg-muted/50 border-border focus:ring-2 focus:ring-blue-500"
+                    disabled={isLoading}
+                  />
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full bg-blue-600 hover:bg-blue-700 transition-all font-semibold"
+                    disabled={isLoading || !input.trim()}
+                  >
+                    {isLoading ? (
+                      <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Analyzing...</>
+                    ) : (
+                      <><Sparkles className="mr-2 h-5 w-5" /> Get AI Strategy</>
+                    )}
+                  </Button>
+                </form>
+
+                {/* AI RESPONSE SECTION */}
+                {response && (
+                  <div className="mt-6 text-left space-y-4 animate-in fade-in slide-in-from-top-2 duration-500">
+                    <div className="p-5 bg-muted/50 rounded-xl border border-border">
+                      <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
+                        <ArrowRight className="h-4 w-4 text-blue-600" />
+                        Strategic Overview
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                        {response.strategy_overview}
+                      </p>
+                      
+                      <div className="space-y-4">
+                        <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Recommended Tactics:</p>
+                        {response?.solutions?.map((sol: any, index: number) => (
+                          <div 
+                            key={index}
+                            onClick={() => document.getElementById(sol.service_link)?.scrollIntoView({ behavior: 'smooth' })}
+                            className="group p-4 bg-background border border-border rounded-lg cursor-pointer hover:border-blue-600 transition-all"
+                          >
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-xs font-bold text-blue-600">{sol.service_match}</span>
+                              <ChevronDown className="h-3 w-3 text-muted-foreground group-hover:text-blue-600" />
+                            </div>
+                            <h4 className="font-semibold text-sm">{sol.title}</h4>
+                            <p className="text-xs text-muted-foreground mt-1">{sol.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>

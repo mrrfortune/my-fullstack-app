@@ -1,13 +1,13 @@
 import { Sparkles, Mail, Phone, MapPin } from 'lucide-react';
-
+import Link from "next/link";
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white py-16">
+    <footer className="bg-muted/50 text-white py-16">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl">AdVantage AI</span>
