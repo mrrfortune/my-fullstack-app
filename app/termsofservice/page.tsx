@@ -1,6 +1,6 @@
 import { FileText, AlertCircle, Scale, Ban, DollarSign, Gavel } from 'lucide-react';
 
-export function TermsOfService() {
+export default function TermsOfService() {
   const sections = [
     {
       icon: FileText,
@@ -59,7 +59,7 @@ export function TermsOfService() {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 pt-24 pb-16">
+    <div className="min-h-screen dark:bg-slate-950 pt-24 pb-16">
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-16">

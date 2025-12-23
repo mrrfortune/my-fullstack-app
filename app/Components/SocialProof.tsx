@@ -4,23 +4,23 @@ export function SocialProof() {
 const clients = [
     {
       name: 'Netflix',
-      logo: '../../assets/netflix.svg', // Path relative to public folder
+      logo: '../netflix.svg', // Path relative to public folder
     },
     {
       name: 'HULU',
-      logo: '../../assets/hulu.svg',
+      logo: '../hulu.svg',
     },
     {
       name: 'Google',
-      logo: '../../assets/google1.svg',
+      logo: '../google1.svg',
     },
     {
       name: 'Spotify',
-      logo: '../../assets/spotify.svg',
+      logo: '../spotify.svg',
     },
      {
       name: 'Facebook',
-      logo: '../../assets/facebook.svg',
+      logo: '../facebook.svg',
     },
   ];
 

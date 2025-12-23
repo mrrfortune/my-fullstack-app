@@ -1,6 +1,10 @@
 import { Sparkles, Mail, Phone, MapPin } from 'lucide-react';
 import Link from "next/link";
+
 export function Footer() {
+  // Use a variable for the year to keep it updated automatically
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-muted/50 text-white py-16">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -10,7 +14,7 @@ export function Footer() {
               <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl">AdVantage AI</span>
+              <span className="text-xl font-semibold">AdVantage AI</span>
             </div>
             <p className="text-slate-400">
               Transforming brands with AI-powered digital advertising solutions that deliver real results.
@@ -18,34 +22,31 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg mb-4">Services</h3>
+            <h3 className="text-lg font-medium mb-4">Services</h3>
             <ul className="space-y-2 text-slate-400">
-              <li>Targeted Campaigns</li>
-              <li>Growth Marketing</li>
-              <li>Performance Optimization</li>
-              <li>Brand Strategy</li>
-              <li>Analytics & Insights</li>
+              {/* Added internal links to your sections if they exist on your main page */}
+              <li><Link href="/#google-ads" className="hover:text-white transition-colors">Targeted Campaigns</Link></li>
+              <li><Link href="/#performance" className="hover:text-white transition-colors">Growth Marketing</Link></li>
+              <li><Link href="/#analytics" className="hover:text-white transition-colors">Analytics & Insights</Link></li>
               <li>Creative Services</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg mb-4">Company</h3>
+            <h3 className="text-lg font-medium mb-4">Company</h3>
             <ul className="space-y-2 text-slate-400">
-              <li>About Us</li>
+              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li>Our Work</li>
-              <li>Careers</li>
-              <li>Blog</li>
               <li>Contact</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg mb-4">Contact</h3>
+            <h3 className="text-lg font-medium mb-4">Contact</h3>
             <ul className="space-y-3 text-slate-400">
               <li className="flex items-start gap-2">
                 <Mail className="h-5 w-5 shrink-0 mt-0.5" />
-                <span>hello@advantageai.com</span>
+                <a href="mailto:hello@advantageai.com" className="hover:text-white transition-colors">hello@advantageai.com</a>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="h-5 w-5 shrink-0 mt-0.5" />
@@ -61,12 +62,13 @@ export function Footer() {
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 text-sm">
-            © 2024 AdVantage AI. All rights reserved.
+            © {currentYear} AdVantage AI. All rights reserved.
           </p>
           <div className="flex gap-6 text-slate-400 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            {/* UPDATED TO USE NEXT.JS LINK */}
+            <Link href="/privacypolicy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/termsofservice" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

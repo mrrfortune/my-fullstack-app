@@ -1,6 +1,6 @@
 import { Cookie, Info, Settings, ToggleLeft, Shield, CheckCircle } from 'lucide-react';
 
-export function CookiePolicy() {
+export default function CookiePolicy() {
   const cookieTypes = [
     {
       icon: Shield,
@@ -82,7 +82,7 @@ export function CookiePolicy() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 pt-24 pb-16">
+    <div className="min-h-screen dark:bg-slate-950 pt-24 pb-16">
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-16">
