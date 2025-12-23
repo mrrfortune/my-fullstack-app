@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-
+import { toast } from 'sonner';
 // Updated interface to match your app.py JSON structure
 interface Solution {
   title: string;
@@ -23,12 +23,31 @@ export function Hero() {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<BackendResponse | null>(null);
 
-  const generateResponse = async () => {
-    if (!input.trim()) return;
-    setIsLoading(true);
+  // GIBBERISH FILTER FUNCTION
+  const validateInput = (text: string) => {
+    if (text.length < 10) return "Input too short to be a strategy request.";
+    const smashRegex = /[^aeiou]{6,}/i; 
+    if (smashRegex.test(text.replace(/\s/g, ''))) return "Please use real words.";
+    const repeatRegex = /(.)\1{4,}/;
+    if (repeatRegex.test(text)) return "Invalid input detected.";
+    return null;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     
+    // 1. VALIDATION
+    const validationError = validateInput(input);
+    if (validationError) {
+      toast.error("Input Issue", { description: validationError });
+      return; 
+    }
+
+    // 2. START LOADING & API CALL
+    setIsLoading(true);
+    setResponse(null); // Clear previous response
+
     try {
-      // 1. CALL YOUR PYTHON BACKEND
       const res = await fetch('http://127.0.0.1:8000/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,10 +58,10 @@ export function Hero() {
 
       const data: BackendResponse = await res.json();
       setResponse(data);
+      toast.success("Strategy Generated!");
 
-      // 2. AUTO-SCROLL LOGIC
-      // After response loads, scroll to the first recommended service section
-      if (data.solutions.length > 0) {
+      // 3. AUTO-SCROLL LOGIC
+      if (data.solutions && data.solutions.length > 0) {
         setTimeout(() => {
           const sectionId = data.solutions[0].service_link;
           const element = document.getElementById(sectionId);
@@ -53,16 +72,13 @@ export function Hero() {
       }
     } catch (error) {
       console.error("Connection to app.py failed:", error);
+      toast.error("Backend Error", {
+        description: "Could not connect to the strategy engine. Please check if app.py is running."
+      });
     } finally {
       setIsLoading(false);
     }
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    generateResponse();
-  };
-
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-20 transition-colors duration-300">
       <div className="absolute inset-0 bg-grid-slate-900/[0.04] dark:bg-grid-white/[0.05] -z-10" />

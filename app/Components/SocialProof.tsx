@@ -29,7 +29,7 @@ const clients = [
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-12">
           <p className="text-slate-600 dark:text-slate-400 uppercase tracking-wider text-sm mb-8">
-            Trusted by Industry Leaders
+            Our Network
           </p>
         </div>
         

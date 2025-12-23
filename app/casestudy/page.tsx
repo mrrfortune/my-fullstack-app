@@ -150,7 +150,7 @@ export default function CaseStudies() {
     : caseStudies.filter(study => study.industry === selectedFilter);
 
   return (
-    <div className="min-h-screen dark:bg-slate-950 pt-24 pb-16">
+    <div className="min-h-screen dark:bg-slate-950 pb-16">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 to-purple-600 py-20 mb-16">
         <div className="container mx-auto px-6 max-w-7xl text-center">

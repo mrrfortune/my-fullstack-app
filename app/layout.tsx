@@ -1,11 +1,12 @@
 import { ThemeProvider } from './components/theme-provider';
 import { Header } from "./components/Header"; 
 import { Footer } from "./components/Footer"; 
+import { Toaster } from 'sonner';
 import "./globals.css";
 
 export const metadata = {
-  title: "B2B Marketing Platform",
-  description: "Precision advertising and AI-driven growth solutions.",
+  title: "Harbatch Advertising",
+  description: "Precision advertising and growth solutions.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">{children}</main>
+            <Toaster position="top-center" richColors />
             <Footer />
           </div>
         </ThemeProvider>
