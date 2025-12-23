@@ -262,20 +262,24 @@ export default function Services() {
                 we customize our approach to fit your unique business goals and budget.
               </p>
               <div className="space-y-4">
-                <div className="flex items-start gap-4 p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
-                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shrink-0 text-white font-bold">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
-                      Single Service Execution
-                    </h3>
-                    <p className="text-slate-600 dark:text-slate-300">
-                      Need help with just one area? We can execute individual services with the same 
-                      level of expertise and dedication.
-                    </p>
-                  </div>
-                </div>
+               {/* Step 1 - High Visibility Fix */}
+<div className="flex items-start gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-blue-500/50">
+  {/* Brightened blue-400 for better "glow" in dark mode */}
+  <div className="w-10 h-10 bg-blue-600 dark:bg-blue-400 rounded-lg flex items-center justify-center shrink-0 text-white dark:text-slate-950 font-bold shadow-lg shadow-blue-500/20">
+    1
+  </div>
+  <div>
+    {/* Force text-white and increase font-weight */}
+    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+      Single Service Execution
+    </h3>
+    {/* Use slate-300 (light gray) instead of slate-600 (dark gray) */}
+    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+      Focused expertise for specific project needs. We execute individual 
+      services with dedicated precision.
+    </p>
+  </div>
+</div>
                 <div className="flex items-start gap-4 p-6 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center shrink-0 text-white font-bold">
                     2
@@ -290,20 +294,24 @@ export default function Services() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-6 dark:bg-slate-900 rounded-xl">
-                  <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center shrink-0 text-white font-bold">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
-                      Full-Service Partnership
-                    </h3>
-                    <p className="text-slate-600 dark:text-slate-300">
-                      Let us handle all your digital marketing needs. We become an extension of your 
-                      team, managing everything from strategy to execution.
-                    </p>
-                  </div>
-                </div>
+               {/* Step 3 - High Visibility Version */}
+<div className="flex items-start gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md">
+  {/* We use emerald-400 in dark mode because it glows better against slate-900 */}
+  <div className="w-10 h-10 bg-emerald-600 dark:bg-emerald-400 rounded-lg flex items-center justify-center shrink-0 text-white dark:text-slate-950 font-bold shadow-lg shadow-emerald-500/20">
+    3
+  </div>
+  <div>
+    {/* Force text-white to ensure it doesn't inherit a darker gray */}
+    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+      Full-Service Partnership
+    </h3>
+    {/* Use slate-300 for a crisp, clean look on dark bg */}
+    <p className="text-slate-600 dark:text-slate-300">
+      Let us handle all your digital marketing needs. We become an extension of your 
+      team, managing everything from strategy to execution.
+    </p>
+  </div>
+</div>
               </div>
             </div>
             <div className="relative">
@@ -319,34 +327,30 @@ export default function Services() {
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-blue-700 to-purple-700 dark:from-blue-900 dark:to-purple-900">
-  <div className="container mx-auto px-6 max-w-4xl text-center">
-    <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-      Ready to Grow Your Business?
-    </h2>
-    <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-      Schedule a free consultation to discuss which services are right for your business 
-      and how we can help you achieve your goals.
-    </p>
-    
-    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      {/* Primary Button: Solid White with Dark Text */}
-      <a
-        href="mailto:hello@echoshift.agency?subject=Free Consultation - Services Inquiry"
-        className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-blue-50 hover:scale-105 transition-all shadow-2xl group"
-      >
-        <span>Schedule Free Consultation</span>
-        <ArrowUpRight className="h-5 w-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      </a>
-
-      {/* Secondary Button: Stronger Border and Backdrop blur */}
-      <Link
-        href="/about"
-        className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transition-all border-2 border-white/30"
-      >
-        <span>Learn About Our Agency</span>
-      </Link>
-    </div>
-  </div>
+   <div className="container mx-auto px-6 max-w-4xl text-center">
+          <h2 className="text-4xl lg:text-5xl mb-6 text-white">
+            Ready to Grow Your Business?
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Schedule a free consultation to discuss which services are right for your business 
+            and how we can help you achieve your goals.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="mailto:hello@echoshift.agency?subject=Free Consultation - Services Inquiry"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl hover:bg-blue-50 transition-all shadow-xl group"
+            >
+              <span>Schedule Free Consultation</span>
+              <ArrowUpRight className="h-5 w-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+            <Link
+            href="/about"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all border border-white/20"
+            >
+              <span>Learn About Our Agency</span>
+            </Link>
+          </div>
+        </div>
 </section>
     </div>
   );
