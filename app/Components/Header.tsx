@@ -22,7 +22,7 @@ export function Header() {
     { name: 'Home', href: '/', id: 'home' },
     { name: 'Services', href: '/#services', id: 'services' },
     { name: 'About', href: '/about', id: 'about' },
-    { name: 'Case Studies', href: '/case-studies', id: '' },
+    { name: 'Case Studies', href: '/casestudy', id: '' },
   ];
 
   return (
